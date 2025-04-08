@@ -51,6 +51,10 @@ public class PlayerMovementplat : MonoBehaviour
         float moveInput = Input.GetAxisRaw("Horizontal");
         // returns 1 if moving to the right, -1 if moving to the left, 0 if nada. "raw" means there's no smoothing.
 
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            animator.SetTrigger("attack");
+        }
 
         RunAnimation(moveInput);
         RunPhysics(moveInput);
