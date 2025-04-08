@@ -14,6 +14,10 @@ public class PlayerMovementplat : MonoBehaviour
     private float jumpVelocity { get; set; } = 1000f; // Jump velocity
 
     private Rigidbody2D rb;
+    private BoxCollider2D hitbox;
+    private bool isAttacking;
+    private float attackDuration = 0.2f;
+    private float attackTimer;
 
     [field: SerializeField]
     public UnityEvent OnCollect { get; set;}
@@ -39,6 +43,7 @@ public class PlayerMovementplat : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = transform.GetChild(0).GetComponent<Animator>();
+        hitbox = transform.GetChild(2).GetComponent<BoxCollider2D>();
         jumps = maxJumps;
     }
 
@@ -54,6 +59,9 @@ public class PlayerMovementplat : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E))
         {
             animator.SetTrigger("attack");
+            hitbox.enabled = true;
+            attackTimer = attackDuration;
+            isAttacking = true;
         }
 
         RunAnimation(moveInput);
@@ -66,6 +74,16 @@ public class PlayerMovementplat : MonoBehaviour
             if (jumpTimer <= 0)
             {
                 isJumping = false;
+            }
+        }
+
+        if (isAttacking)
+        {
+            attackTimer -= Time.deltaTime;
+            if(attackTimer <= 0)
+            {
+                hitbox.enabled = false;
+                isAttacking = false;
             }
         }
     }
@@ -163,7 +181,6 @@ public class PlayerMovementplat : MonoBehaviour
             bool wallDetected = (hitLeftWall.collider != null || hitRightWall.collider != null);
             if (wallDetected)
             {
-                Debug.Log("Hit a wall!");
                 animator.SetBool("walld", true);
                 jumps = maxJumps;
             }
