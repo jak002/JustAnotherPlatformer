@@ -43,6 +43,11 @@ public class PlayerMovementplat : MonoBehaviour
     private float jumpCooldown = 0.2f; // Cooldown period after jumping
     private float jumpTimer;
 
+    private bool dead = false;
+    private float deathLength = 3f;
+    private float deathTimer;
+    private Vector2 startpos;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,10 +56,24 @@ public class PlayerMovementplat : MonoBehaviour
         animator = transform.GetChild(0).GetComponent<Animator>();
         hitbox = transform.GetChild(2).GetComponent<BoxCollider2D>();
         jumps = maxJumps;
+        startpos = GameObject.Find(gameObject.name).transform.position;
     }
 
     private void Update()
     {
+
+        if (dead) {
+            deathTimer -= Time.deltaTime;
+            if (deathTimer <= 0)
+            {
+                gameObject.transform.position = startpos;
+                dead = false;
+                animator.SetTrigger("respawned");
+            }
+            return;
+
+        };
+
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && jumps > 0) //if the "jump" key is pressed (not held) and the player still has jumps left)
         {
             Jump();
@@ -69,6 +88,11 @@ public class PlayerMovementplat : MonoBehaviour
             hitbox.enabled = true;
             attackTimer = attackDuration;
             isAttacking = true;
+        }
+
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            animator.SetTrigger("died");
         }
 
         RunAnimation(moveInput);
@@ -143,29 +167,18 @@ public class PlayerMovementplat : MonoBehaviour
         }
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    Debug.Log("Collision: " +  collision.gameObject);
-    //    Debug.Log("Tag: " + collision.gameObject.tag);
-    //    if (collision.gameObject.tag == "Monster1")
-    //    {
-    //        OnDie?.Invoke();
-    //    }
-
-    //    if (collision.gameObject.layer == 9 && collision.GetContact(0).point.y < gameObject.transform.position.y)
-    //    {
-    //        jumps = maxJumps;
-    //        animator.SetBool("grounded", true);
-    //    }
-    //}
-
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.layer == 9 && collision.transform.position.y < gameObject.transform.position.y-0.5)
-    //    {
-    //        animator.SetBool("grounded", false);
-    //    }
-    //}
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Collision: " + collision.gameObject);
+        Debug.Log("Tag: " + collision.gameObject.tag);
+        if (collision.gameObject.tag == "Monster1" && collision.gameObject.transform.position.y >= gameObject.transform.position.y)
+        {
+            OnDie?.Invoke();
+            animator.SetTrigger("died");
+            dead = true;
+            deathTimer = deathLength;
+        }
+    }
 
     private void CheckGroundAndWalls()
     {
