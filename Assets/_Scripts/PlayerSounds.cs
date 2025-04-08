@@ -5,6 +5,8 @@ public class PlayerSounds : MonoBehaviour
     public AudioClip AudioClipPowerUp;
     public AudioClip AudioClipHitMonster;
     public AudioClip AudioClipDie;
+    public AudioClip AudioClipJump;
+    public AudioClip AudioClipAttack;
 
     private AudioSource AudioSource;
 
@@ -33,6 +35,16 @@ public class PlayerSounds : MonoBehaviour
     public void Dead()
     {
         PlayClip(AudioClipDie);
+    }
+
+    public void Attack()
+    {
+        PlayClip(AudioClipAttack);
+    }
+
+    public void Jump()
+    {
+        PlayClip(AudioClipJump);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

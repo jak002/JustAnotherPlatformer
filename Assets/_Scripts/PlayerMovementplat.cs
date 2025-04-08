@@ -28,6 +28,12 @@ public class PlayerMovementplat : MonoBehaviour
     [field: SerializeField]
     public UnityEvent OnDie { get; set;}
 
+    [field: SerializeField]
+    public UnityEvent OnJump { get; set;}
+
+    [field: SerializeField]
+    public UnityEvent OnAttack { get; set;}
+
     private Animator animator;
 
     [field: SerializeField]
@@ -59,6 +65,7 @@ public class PlayerMovementplat : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E))
         {
             animator.SetTrigger("attack");
+            OnAttack.Invoke();
             hitbox.enabled = true;
             attackTimer = attackDuration;
             isAttacking = true;
@@ -105,6 +112,7 @@ public class PlayerMovementplat : MonoBehaviour
 
     private void Jump()
     {
+        OnJump.Invoke();
         animator.SetTrigger("jump");
         animator.SetBool("grounded", false); //also handles animation
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // reset velocity, so in-air jumps don't launch the player into the stratosphere
