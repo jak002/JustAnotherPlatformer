@@ -26,6 +26,13 @@ public class PlayerMovementplat : MonoBehaviour
 
     private Animator animator;
 
+    [field: SerializeField]
+    private LayerMask groundLayer;
+
+    private bool isJumping;
+    private float jumpCooldown = 0.2f; // Cooldown period after jumping
+    private float jumpTimer;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,16 +44,26 @@ public class PlayerMovementplat : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) && jumps > 0) //if the "jump" key is pressed (not held) and the player still has jumps left)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && jumps > 0) //if the "jump" key is pressed (not held) and the player still has jumps left)
         {
             Jump();
         }
         float moveInput = Input.GetAxisRaw("Horizontal");
         // returns 1 if moving to the right, -1 if moving to the left, 0 if nada. "raw" means there's no smoothing.
 
+
         RunAnimation(moveInput);
         RunPhysics(moveInput);
+        CheckGroundAndWalls();
 
+        if (isJumping)
+        {
+            jumpTimer -= Time.deltaTime;
+            if (jumpTimer <= 0)
+            {
+                isJumping = false;
+            }
+        }
     }
 
     private void RunPhysics(float moveInput)
@@ -71,6 +88,8 @@ public class PlayerMovementplat : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // reset velocity, so in-air jumps don't launch the player into the stratosphere
         rb.AddForce(new Vector2(rb.linearVelocity.x, jumpVelocity)); // we have liftoff!
         jumps--; // one jump used up.
+        isJumping = true;
+        jumpTimer = jumpCooldown;
     }
 
     private void RunAnimation(float moveInput)
@@ -94,27 +113,60 @@ public class PlayerMovementplat : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Collision: " +  collision.gameObject);
-        Debug.Log("Tag: " + collision.gameObject.tag);
-        if (collision.gameObject.tag == "Monster1")
-        {
-            OnDie?.Invoke();
-        }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    Debug.Log("Collision: " +  collision.gameObject);
+    //    Debug.Log("Tag: " + collision.gameObject.tag);
+    //    if (collision.gameObject.tag == "Monster1")
+    //    {
+    //        OnDie?.Invoke();
+    //    }
 
-        if (collision.gameObject.layer == 9 && collision.GetContact(0).point.y < gameObject.transform.position.y)
-        {
-            jumps = maxJumps;
-            animator.SetBool("grounded", true);
-        }
-    }
+    //    if (collision.gameObject.layer == 9 && collision.GetContact(0).point.y < gameObject.transform.position.y)
+    //    {
+    //        jumps = maxJumps;
+    //        animator.SetBool("grounded", true);
+    //    }
+    //}
 
-    private void OnCollisionExit2D(Collision2D collision)
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.layer == 9 && collision.transform.position.y < gameObject.transform.position.y-0.5)
+    //    {
+    //        animator.SetBool("grounded", false);
+    //    }
+    //}
+
+    private void CheckGroundAndWalls()
     {
-        if (collision.gameObject.layer == 9 && collision.transform.position.y < gameObject.transform.position.y-0.5)
+
+        if (!isJumping)
         {
-            animator.SetBool("grounded", false);
+            RaycastHit2D hitGround = Physics2D.Raycast(transform.position, Vector2.down, 0.52f, groundLayer);
+            RaycastHit2D hitLeftWall = Physics2D.Raycast(transform.position, Vector2.left, 0.6f, groundLayer);
+            RaycastHit2D hitRightWall = Physics2D.Raycast(transform.position, Vector2.right, 0.6f, groundLayer);
+
+            if (hitGround.collider != null)
+            {
+                jumps = maxJumps;
+                animator.SetBool("grounded", true);
+            }
+            else
+            {
+                animator.SetBool("grounded", false);
+            }
+
+            bool wallDetected = (hitLeftWall.collider != null || hitRightWall.collider != null);
+            if (wallDetected)
+            {
+                Debug.Log("Hit a wall!");
+                animator.SetBool("walld", true);
+                jumps = maxJumps;
+            }
+            else if (!wallDetected)
+            {
+                animator.SetBool("walld", false);
+            }
         }
     }
 }
