@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PatrollingEnemy : MonoBehaviour
+public class MonsterPatrol : MonoBehaviour
 {
     public Transform pointA; // Start point
     public Transform pointB; // End point
@@ -22,7 +22,7 @@ public class PatrollingEnemy : MonoBehaviour
         if ((Vector2)transform.position == (Vector2)target.position)
         {
             movingToB = !movingToB; // Change direction
-            Flip(); // Flip the model's direction
+            Flip(); // Flip the model's direction (turn around)
         }
     }
 
