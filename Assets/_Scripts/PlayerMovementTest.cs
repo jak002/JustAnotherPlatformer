@@ -68,11 +68,12 @@ public class PlayerMovementTest : MonoBehaviour
             if (deathTimer <= 0)
             {
                 gameObject.transform.position = startpos;
+                GetComponent<Health>().currentHealth = GetComponent<Health>().maxHealth;
+                FindFirstObjectByType<HealthUI>().UpdateHearts(GetComponent<Health>().currentHealth); // evt.
                 dead = false;
                 animator.SetTrigger("respawned");
             }
             return;
-
         }
         ;
 
@@ -119,6 +120,13 @@ public class PlayerMovementTest : MonoBehaviour
                 isAttacking = false;
             }
         }
+    }
+
+    public void TriggerDeath()
+    {
+        dead = true;
+        deathTimer = deathLength;
+        animator.SetTrigger("died");
     }
 
     private void RunPhysics(float moveInput)
@@ -175,11 +183,11 @@ public class PlayerMovementTest : MonoBehaviour
         Debug.Log("Tag: " + collision.gameObject.tag);
         if (collision.gameObject.tag == "Monster1" && collision.gameObject.transform.position.y >= gameObject.transform.position.y)
         {
-            Health palyerHealth = gameObject.GetComponent<Health>();
+            Health playerHealth = gameObject.GetComponent<Health>();
 
-            if (palyerHealth != null)
+            if (playerHealth != null)
             {
-                palyerHealth.TakeDamage(1);
+                playerHealth.TakeDamage(1);
             }
             // Removed dead logic to be handled elsewhere
             //OnDie?.Invoke();

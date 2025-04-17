@@ -6,10 +6,14 @@ public class MonsterPatrol : MonoBehaviour
     public Transform pointB; // End point
     public float speed = 2f;  // Patrol speed
     private bool movingToB = true;  // Flag for direction
+    private bool isDead = false; // Flag for death state
 
     private void Update()
     {
-        Patrol();
+        if (!isDead) // Only patrol if not dead
+        {
+            Patrol();
+        }
     }
 
     private void Patrol()
@@ -32,5 +36,10 @@ public class MonsterPatrol : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1; // Invert the x-axis scale to flip
         transform.localScale = theScale;
+    }
+
+    public void Die()
+    {
+        isDead = true;
     }
 }

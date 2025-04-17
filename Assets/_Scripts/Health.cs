@@ -23,7 +23,7 @@ public class Health : MonoBehaviour
         // if there is an animator component, play the hit animation
         if (animator != null)
         {
-            animator.SetTrigger("hit");
+            animator.SetTrigger("Hit");
         }
 
         // if the player is taking damage, update the health UI
@@ -46,18 +46,27 @@ public class Health : MonoBehaviour
         // play the death animation
         if (animator != null)
         {
-            animator.SetTrigger("died");
+            animator.SetTrigger("Die");
         }
 
         // disable the collider so the player or monster can't move
         if (!isPlayer)
         {
+            // Disable all colliders
+            foreach (var col in GetComponents<Collider2D>())
+            {
+                col.enabled = false;
+            }
+
+            // stop patrolling
+            GetComponent<MonsterPatrol>()?.Die(); // calls the stop method in the monster patrol script
             Destroy(gameObject, 3f); // remove the monster after 3 second
         }
         else
         {
             // Player dødslogik – fx reload level eller respawn
             Debug.Log("Player died");
+            FindFirstObjectByType<PlayerMovementTest>().TriggerDeath();
         }
     }
 }
