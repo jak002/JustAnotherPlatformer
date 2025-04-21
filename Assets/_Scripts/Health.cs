@@ -80,7 +80,7 @@ public class Health : MonoBehaviour
         }
         else
         {
-            // Player dødslogik – fx reload level eller respawn
+            // Player deathlogic – fx reload level eller respawn
             Debug.Log("Player died");
             FindFirstObjectByType<PlayerMovementTest>().TriggerDeath();
         }

@@ -3057,7 +3057,7 @@ Transform:
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.3457403, y: 0.5, z: -10}
+  m_LocalPosition: {x: -5.8706117, y: 0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3881,6 +3881,7 @@ GameObject:
   - component: {fileID: 1366371549}
   - component: {fileID: 1366371550}
   - component: {fileID: 1366371551}
+  - component: {fileID: 1366371552}
   m_Layer: 10
   m_Name: MushroomMan
   m_TagString: Monster1
@@ -4068,6 +4069,33 @@ MonoBehaviour:
   pointA: {fileID: 1855583353}
   pointB: {fileID: 1196539326}
   speed: 4
+--- !u!50 &1366371552
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366371543}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1439806636
 GameObject:
   m_ObjectHideFlags: 0
@@ -5133,7 +5161,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3976744161791875539, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
