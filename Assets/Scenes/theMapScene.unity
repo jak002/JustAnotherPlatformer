@@ -87144,6 +87144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5874005931754778570, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
+    - {fileID: 3976744161791875539, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2313098179045555355, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
@@ -87230,7 +87231,7 @@ MonoBehaviour:
   <horizontalSpeed>k__BackingField: 8
   maxVerticalSpeed: 25
   maxJumps: 1
-  <jumpVelocity>k__BackingField: 130
+  <jumpVelocity>k__BackingField: 1250
   <OnCollect>k__BackingField:
     m_PersistentCalls:
       m_Calls:
