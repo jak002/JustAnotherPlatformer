@@ -14,7 +14,9 @@ public class Health : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth; // start with max health
-        animator = GetComponent<Animator>(); // get the animator component
+        // get the animator component from the child object
+        animator = GetComponentInChildren<Animator>();
+        Debug.Log("Animator object: " + animator.gameObject.name);
     }
 
     // function called when the player or monster takes damage
@@ -33,12 +35,13 @@ public class Health : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Hit");
+            Debug.Log("Hit trigger called on animator");
         }
 
         // if the player is taking damage, update the health UI
         if (isPlayer)
         {
-            // FindFirstObjectByType<HealthUI>().UpdateHearts(currentHealth);
+            // FindFirstObjectByType<HealthUI>().UpdateHearts(currentHealth);-----------------
 
             var sound = GetComponent<PlayerSounds>();
             sound?.HitByEnemy(); // this plays the "hit" sound when the player takes damage
@@ -58,7 +61,8 @@ public class Health : MonoBehaviour
         // play the death animation
         if (animator != null)
         {
-            animator.SetTrigger("Die");
+            animator.SetBool("isDead", true); // set the isDead bool to true
+            animator.SetTrigger("died");
         }
 
         // disable the collider so the player or monster can't move
