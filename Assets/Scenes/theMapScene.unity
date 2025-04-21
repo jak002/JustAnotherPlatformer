@@ -86987,6 +86987,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3976744161791875539, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976744161791875539, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
       propertyPath: <jumpVelocity>k__BackingField
       value: 130
       objectReference: {fileID: 0}
@@ -87151,6 +87155,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5459472207986076285, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 583238913}
+    - targetCorrespondingSourceObject: {fileID: 5459472207986076285, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 583238911}
     - targetCorrespondingSourceObject: {fileID: 589602411048515380, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
       insertIndex: -1
@@ -87180,67 +87187,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 583238908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2738204b64f8fb42bc513d72838f357, type: 3}
+  m_Script: {fileID: 11500000, guid: 0149319aea19ec245a74c5b22f1419ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <horizontalSpeed>k__BackingField: 8
-  maxVerticalSpeed: 25
-  maxJumps: 1
-  <jumpVelocity>k__BackingField: 1000
-  <OnCollect>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1266125658}
-        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
-        m_MethodName: PlayCollectPowerUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  <OnHitEnemy>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1266125658}
-        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
-        m_MethodName: HitByEnemy
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  <OnDie>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1266125658}
-        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
-        m_MethodName: Dead
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  <OnJump>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <OnAttack>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
+  maxHealth: 3
+  currentHealth: 0
+  isPlayer: 1
 --- !u!95 &583238912
 Animator:
   serializedVersion: 7
@@ -87263,6 +87215,100 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &583238913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583238908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e2caa5241326242b0009c6e6334119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <horizontalSpeed>k__BackingField: 8
+  maxVerticalSpeed: 25
+  maxJumps: 1
+  <jumpVelocity>k__BackingField: 130
+  <OnCollect>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2006159885}
+        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
+        m_MethodName: PlayCollectPowerUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  <OnHitEnemy>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2006159885}
+        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
+        m_MethodName: HitByEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  <OnDie>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2006159885}
+        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
+        m_MethodName: Dead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  <OnJump>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2006159885}
+        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  <OnAttack>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2006159885}
+        m_TargetAssemblyTypeName: PlayerSounds, Assembly-CSharp
+        m_MethodName: Attack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &583784009
 GameObject:
   m_ObjectHideFlags: 0
@@ -112231,6 +112277,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2006159885 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 164637747629699624, guid: e8fc7b6101a2a9d43bac553e2e8bf531, type: 3}
+  m_PrefabInstance: {fileID: 583238907}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc7628e3e7e1274c85b02842c310aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2006248928
 GameObject:
   m_ObjectHideFlags: 0

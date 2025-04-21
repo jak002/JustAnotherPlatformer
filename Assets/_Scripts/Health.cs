@@ -61,7 +61,7 @@ public class Health : MonoBehaviour
         // play the death animation
         if (animator != null)
         {
-            animator.SetBool("isDead", true); // set the isDead bool to true
+            
             animator.SetTrigger("died");
         }
 
