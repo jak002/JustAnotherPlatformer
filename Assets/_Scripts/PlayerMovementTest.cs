@@ -69,7 +69,7 @@ public class PlayerMovementTest : MonoBehaviour
             {
                 gameObject.transform.position = startpos;
                 GetComponent<Health>().currentHealth = GetComponent<Health>().maxHealth;
-                FindFirstObjectByType<HealthUI>().UpdateHearts(GetComponent<Health>().currentHealth); // evt.
+                // FindFirstObjectByType<HealthUI>().UpdateHearts(GetComponent<Health>().currentHealth); ------------------------------------------------
                 dead = false;
                 animator.SetTrigger("respawned");
             }
@@ -181,7 +181,7 @@ public class PlayerMovementTest : MonoBehaviour
     {
         Debug.Log("Collision: " + collision.gameObject);
         Debug.Log("Tag: " + collision.gameObject.tag);
-        if (collision.gameObject.tag == "Monster1" && collision.gameObject.transform.position.y >= gameObject.transform.position.y)
+        if (collision.gameObject.tag == "Monster1" && gameObject.transform.position.y <= collision.gameObject.transform.position.y)
         {
             Health playerHealth = gameObject.GetComponent<Health>();
 

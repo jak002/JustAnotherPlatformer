@@ -4,6 +4,8 @@ public class Health : MonoBehaviour
 {
     public int maxHealth = 3; // max health is 3
     public int currentHealth; // current health the player and monster has
+    private float damageCooldown = 1f; // 1 second cooldown for monster contact damage
+    private float lastDamageTime = -999f; // time of last damage taken
 
     public bool isPlayer = false; // is this the player or a monster? if monster set true on unity editor
 
@@ -18,6 +20,13 @@ public class Health : MonoBehaviour
     // function called when the player or monster takes damage
     public void TakeDamage(int amount)
     {
+        if (isPlayer)
+        {
+            // Only apply cooldown to the player (when monster attacks player)
+            if (Time.time - lastDamageTime < damageCooldown) return;
+            lastDamageTime = Time.time;
+        }
+
         currentHealth -= amount; // subtract the amount of damage taken from current health
 
         // if there is an animator component, play the hit animation
@@ -29,7 +38,10 @@ public class Health : MonoBehaviour
         // if the player is taking damage, update the health UI
         if (isPlayer)
         {
-            FindFirstObjectByType<HealthUI>().UpdateHearts(currentHealth);
+            // FindFirstObjectByType<HealthUI>().UpdateHearts(currentHealth);
+
+            var sound = GetComponent<PlayerSounds>();
+            sound?.HitByEnemy(); // this plays the "hit" sound when the player takes damage
 
         }
 
