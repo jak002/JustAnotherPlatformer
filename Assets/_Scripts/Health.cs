@@ -43,8 +43,9 @@ public class Health : MonoBehaviour
         {
             // FindFirstObjectByType<HealthUI>().UpdateHearts(currentHealth);-----------------
 
-            var sound = GetComponent<PlayerSounds>();
-            sound?.HitByEnemy(); // this plays the "hit" sound when the player takes damage
+            //var sound = GetComponent<PlayerSounds>();
+            //sound?.HitByEnemy(); // this plays the "hit" sound when the player takes damage
+            FindFirstObjectByType<PlayerMovementTest>().OnHitEnemy.Invoke();
 
         }
 
